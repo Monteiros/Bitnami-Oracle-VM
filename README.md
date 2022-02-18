@@ -66,12 +66,12 @@ get the latest version of Bitnami at the official site -just copy the download l
 # STEP 9: 
 Provide execute permission on the installer package using this command.
 
-    sudo chmod 755 bitnami-wordpress-5.7.1-0-linux-x64-installer.run
+    sudo chmod 755 bitnami-wordpress-5.9-0-linux-x64-installer.run
 
 # STEP 10: 
 execute the installer.*/
 
-    ./bitnami-wordpress-5.7.1-0-linux-x64-installer.run
+    ./bitnami-wordpress-5.9-0-linux-x64-installer.run
 
 
 
@@ -87,7 +87,7 @@ execute the installer.*/
 
 # 3 restart the apache server for changes to take effect
 
-    sudo /opt/wordpress-5.7.1-0/ctlscript.sh restart apache
+    sudo /opt/wordpress-5.9-0/ctlscript.sh restart apache
 
 
 Now all you need is to point your domain to your machine public ip by adding two DNS records:
@@ -99,7 +99,8 @@ Now all you need is to point your domain to your machine public ip by adding two
 www @
 
 # Generate a Free SSL certificate and force redirection from HTTP to HTTPS, www to non-www
-sudo /opt/wordpress-5.7.1-0/bncert-tool
+
+    sudo /opt/wordpress-5.9-0/bncert-tool
 
 # ENJOY YOUR FREE WORDPRESS HOSTING ! 🎉
 
