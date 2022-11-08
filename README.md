@@ -1,78 +1,121 @@
 # Bitnami-Wordpress-stack-installation-in-Oracle-VM---Cheat-sheet
 
-A step by step guide to installation of Bitnami stack on Oracle VM instance 
+This step-by-step procedure is for the WordPress packaged by Bitnami - a one-click install solution,but you can go ahead and download whatever tool you want.
 
-Valid under Ubunto, CentOS, Fedora or Red Hat Enterprise Linux
+Of course you'll first need an account at [Oracle cloud](https://signup.cloud.oracle.com/), and perhaps you'd like to read this [guide](https://blogs.oracle.com/lad-cloud-experts-pt/post/o-que-e-oracle-cloud-always-free-services) first.
+You'll be all set with:
+- A valid email address.
+- A valid cell number.( I gave my landline)
+- A valid credit card number( a virtual visa worked fine).
+
+_NOTE:_ Till now (a couple of days) nothing has been charged from my credit card. Important is to select *Always free eligible* badge. There is a *Deploy a WordPress website*, but without this badge.
+
+ It has been tested under Ubuntu 20, but should work for CentOS, Fedora or Red Hat Enterprise Linux.
 -------------------------------------------------------------
+# Step 0
+#### Creating an Instance
 
-# STEP 1: 
-First, get root access using this command:
+Follow the [Oracle docs.](https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/launchinginstance.htm)
 
-    sudo -i
+# STEP 1:
+#### Connect to Remote Server Without Password
+At instance creation you saved the private key to your computer. Now open a terminal and login  with:      
 
-# STEP 2: 
+    ssh root@your-server-ip
+
+Now update the list of packages
+
+/* if Ubuntu*/
+
+    sudo apt update
+    sudo apt upgrade
+
+/* if CentOS, Fedora or RHEL
+
+    sudo yum update
+    sudo yum upgrade
+
+You're root, so pay attention.
+
+# STEP 2:
+#### Open the firewall
 We have to allow added ports in the system firewall. Use this to allow an HTTP & HTTPS ports:
 
+    sudo apt install firewalld
     sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
-
     sudo firewall-cmd --permanent --zone=public --add-port=443/tcp
 
-
-# STEP 3: 
-reload the firewall to make changes active:
+# STEP 3:
+#### Refresh the firewall
+Reload the firewall to make changes active:
 
     sudo firewall-cmd --reload
 
-
-# STEP 4: 
-update the list of packages of CentOS 7 or whatever Linux distro using this command:
-
-    sudo yum update
-
-
-# STEP 5: 
-check the memory using this command to make sure, it has a swap file:
+# STEP 4:
+#### Check swap
+Check your available memory and current swap space:
 
     free -m
 
-# STEP 6: 
+# STEP 5:
+#### _Optional_ - Allocate some swap memory
+Now create a swap file and allocate space. Here I am using 1 GB but you can add more. 1024 is the size of the swap file in megabytes.
+
+    sudo dd if=/dev/zero of=/mnt/swap.0 bs=1024 count=1048576
+    sudo mkswap /mnt/swap.0
+    sudo swapon /mnt/swap.0
+
+Verify that the swap is available:
+
+    sudo swapon --show  
+
+In the case you cannot create swap, try:
+
+    swapoff /dev/swap.0
+    mkswap /dev/swap.0
+    swapon /dev/swap.0    
+
+
+
+# STEP 6:
 Install Bitnami dependencies
 
-/* if  Ubunto*/
+/* if  Ubuntu*/
 
-    sudo apt-get update
     sudo apt-get install libncurses5
 
 /* if CentOS, Fedora or RHEL
 
     sudo yum install ncurses-compat-libs
 
-# STEP 7: 
-install Perl. So the server got prepared to run the WordPress setup.
+# STEP 7:
+##### _Optional_ Perl
+
+Install Perl. So the server got prepared to run the WordPress setup.
 
 /* if Ubunto*/
-    
+
     sudo apt-get install perl
-    
+
 /* if CentOS/Fedora/RHEL*/
 
     sudo yum install perl perl-Data-Dumper
 
-# STEP 8: 
-get the latest version of Bitnami at the official site -just copy the download link
+# STEP 8:
+#### Download bitnami 
+get the latest version of Bitnami at the official site - Remember to copy the current download link
 
-    wget https://bitnami.com/redirect/to/1448613/bitnami-wordpress-5.7.1-0-linux-x64-installer.run
-
-# STEP 9: 
+    wget https://bitnami.com/redirect/to/2226262Ωbitnami-wordpress-6.1-0-linux-x64-installer.run
+    
+# STEP 9:
 Provide execute permission on the installer package using this command.
 
-    sudo chmod 755 bitnami-wordpress-5.9-0-linux-x64-installer.run
+    sudo chmod 744 bitnami-wordpress-5.9-0-linux-x64-installer.run
 
-# STEP 10: 
+# STEP 10:
 execute the installer.*/
 
-    ./bitnami-wordpress-5.9-0-linux-x64-installer.run
-
+    sudo ./bitnami-wordpress-5.9-0-linux-x64-installer.run
 
 
 # Bonus----------
@@ -90,6 +133,7 @@ execute the installer.*/
     sudo /opt/wordpress-5.9-0/ctlscript.sh restart apache
 
 
+# Remember to point your domain to IP
 Now all you need is to point your domain to your machine public ip by adding two DNS records:
 
 # “A” record
@@ -102,5 +146,7 @@ www @
 
     sudo /opt/wordpress-5.9-0/bncert-tool
 
-# ENJOY YOUR FREE WORDPRESS HOSTING ! 🎉
-
+### That's all folks. Now go to an audio streamer, listen to: 
+### *Can't Take My Eyes Off You*  
+### and sing along: 
+# You're just too good to be true ...
