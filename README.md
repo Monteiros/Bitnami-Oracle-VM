@@ -105,32 +105,32 @@ Install Perl. So the server got prepared to run the WordPress setup.
 #### Download bitnami 
 get the latest version of Bitnami at the official site - Remember to copy the current download link
 
-    wget https://bitnami.com/redirect/to/2226262/bitnami-wordpress-6.1-0-linux-x64-installer.run?with_popup_skip_signin=1
+    wget https://bitnami.com/redirect/to/2226262/bitnami-wordpress-6.1-0-linux-x64-installer.run
     
 # STEP 9:
 Provide execute permission on the installer package using this command.
 
-    sudo chmod 744 bitnami-wordpress-5.9-0-linux-x64-installer.run
+    sudo chmod 744 bitnami-wwordpress-6.1-0-linux-x64-installer.run
 
 # STEP 10:
 execute the installer.*/
 
-    sudo ./bitnami-wordpress-5.9-0-linux-x64-installer.run
+    sudo ./bitnami-wordpress-6.1-0-linux-x64-installer.run
 
 
 # Bonus----------
 
 # 1 Remove Bitnami Welcome page
 
-    /opt/wordpress-5.9-0/apps/wordpress/bnconfig --appurl /
+    /opt/wordpress-6.1-0/apps/wordpress/bnconfig --appurl /
 
 # 2 Remove Bitnami banner at the bottom right corner
 
-    sudo /opt/wordpress-5.9-0/apps/wordpress/bnconfig --disable_banner 1
+    sudo /opt/wordpress-6.1-0/apps/wordpress/bnconfig --disable_banner 1
 
 # 3 restart the apache server for changes to take effect
 
-    sudo /opt/wordpress-5.9-0/ctlscript.sh restart apache
+    sudo /opt/wordpress-6.1-0/ctlscript.sh restart apache
 
 
 # Remember to point your domain to IP
@@ -144,7 +144,7 @@ www @
 
 # Generate a Free SSL certificate and force redirection from HTTP to HTTPS, www to non-www
 
-    sudo /opt/wordpress-5.9-0/bncert-tool
+    sudo /opt/wordpress-6.1-0/bncert-tool
 
 ### That's all folks. Now go to an audio streamer, listen to: 
 ### *Can't Take My Eyes Off You*  
