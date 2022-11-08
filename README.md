@@ -105,7 +105,7 @@ Install Perl. So the server got prepared to run the WordPress setup.
 #### Download bitnami 
 get the latest version of Bitnami at the official site - Remember to copy the current download link
 
-    wget https://bitnami.com/redirect/to/2226262Ωbitnami-wordpress-6.1-0-linux-x64-installer.run
+    wget https://bitnami.com/redirect/to/2226262/bitnami-wordpress-6.1-0-linux-x64-installer.run?with_popup_skip_signin=1
     
 # STEP 9:
 Provide execute permission on the installer package using this command.
