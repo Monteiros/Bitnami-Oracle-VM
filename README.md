@@ -2,7 +2,7 @@
 
 This step-by-step procedure is for the WordPress packaged by Bitnami - a one-click install solution,but you can go ahead and download whatever tool you want.
 
-Of course you'll first need an account at [Oracle cloud](https://signup.cloud.oracle.com/), and perhaps you'd like to read this [guide](https://blogs.oracle.com/lad-cloud-experts-pt/post/o-que-e-oracle-cloud-always-free-services) first.
+Of course you'll first need an account at [Oracle cloud](https://signup.cloud.oracle.com/), and perhaps you'd like to read this [guide](https://blogs.oracle.com/lad-cloud-experts-pt/post/o-que-e-oracle-cloud-always-free-services).
 You'll be all set with:
 - A valid email address.
 - A valid cell number.( I gave my landline)
@@ -12,7 +12,7 @@ _NOTE:_ Till now (a couple of days) nothing has been charged from my credit card
 
  It has been tested under Ubuntu 20, but should work for CentOS, Fedora or Red Hat Enterprise Linux.
 -------------------------------------------------------------
-# Step 0
+# Step 0:
 #### Creating an Instance
 
 Follow the [Oracle docs.](https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/launchinginstance.htm)
@@ -23,14 +23,14 @@ At instance creation you saved the private key to your computer. Now open a term
 
     ssh root@your-server-ip
 
-Now update the list of packages
+Now update and upgrade the list of packages
 
 /* if Ubuntu*/
 
     sudo apt update
     sudo apt upgrade
 
-/* if CentOS, Fedora or RHEL
+/* if CentOS, Fedora or RHEL*/
 
     sudo yum update
     sudo yum upgrade
@@ -71,49 +71,52 @@ Verify that the swap is available:
 
 In the case you cannot create swap, try:
 
-    swapoff /dev/swap.0
-    mkswap /dev/swap.0
-    swapon /dev/swap.0    
+    swapoff /mnt/swap.0
+    mkswap /mnt/swap.0
+    swapon /mnt/swap.0    
 
 
 
 # STEP 6:
+#### Troubleshoot issues
 Install Bitnami dependencies
 
-/* if  Ubuntu*/
+/* if  Ubuntu -> Missing library libtinfo.so.5*/
 
-    sudo apt-get install libncurses5
+    sudo apt install libncurses5
 
-/* if CentOS, Fedora or RHEL
+/* if CentOS, Fedora or RHEL and Fedora -> Missing library libnsl.so.1
 
     sudo yum install ncurses-compat-libs
+    sudo yum install libnsl
+
 
 # STEP 7:
-##### _Optional_ Perl
+#### _Optional_ Perl
 
 Install Perl. So the server got prepared to run the WordPress setup.
 
-/* if Ubunto*/
+/* if Ubuntu*/
 
-    sudo apt-get install perl
+    sudo apt install perl
 
 /* if CentOS/Fedora/RHEL*/
 
     sudo yum install perl perl-Data-Dumper
-
+    
 # STEP 8:
 #### Download bitnami 
-get the latest version of Bitnami at the official site - Remember to copy the current download link
+get the latest version of [Bitnami](https://bitnami.com/stack/wordpress/installer) at the official site - Remember to replace the current download link
 
-    wget https://bitnami.com/redirect/to/2226262/bitnami-wordpress-6.1-0-linux-x64-installer.run
+    sudo wget https://bitnami.com/redirect/to/2226262/bitnami-wordpress-6.1-0-linux-x64-installer.run
     
 # STEP 9:
 Provide execute permission on the installer package using this command.
 
-    sudo chmod 744 bitnami-wwordpress-6.1-0-linux-x64-installer.run
+    sudo chmod 744 bitnami-wordpress-6.1-0-linux-x64-installer.run
 
 # STEP 10:
-execute the installer.*/
+execute the installer.
 
     sudo ./bitnami-wordpress-6.1-0-linux-x64-installer.run
 
@@ -133,7 +136,7 @@ execute the installer.*/
     sudo /opt/wordpress-6.1-0/ctlscript.sh restart apache
 
 
-# Remember to point your domain to IP
+# Remember to point your domain to an IP
 Now all you need is to point your domain to your machine public ip by adding two DNS records:
 
 # “A” record
@@ -142,11 +145,11 @@ Now all you need is to point your domain to your machine public ip by adding two
 # CNAME record
 www @
 
-# Generate a Free SSL certificate and force redirection from HTTP to HTTPS, www to non-www
+# Generate a Free SSL certificate, cron job renew and force redirection from HTTP to HTTPS, www to non-www
 
     sudo /opt/wordpress-6.1-0/bncert-tool
 
-### That's all folks. Now go to an audio streamer, listen to: 
+## That's all folks. Now go to an audio streamer and search for: 
 ### *Can't Take My Eyes Off You*  
 ### and sing along: 
 # You're just too good to be true ...
